@@ -19,7 +19,12 @@ class BackGroudRemove:
         self.window_name = window_name
 
     def remove_background(self):
-        pass
+        fgbg = cv2.createBackgroundSubtractorMOG2()
+        f_mask = fgbg.apply(self.image)
+        print(f_mask)
+        cv2.imshow('original', self.image)
+        cv2.imshow('f_mask', f_mask)
+        cv2.waitKey(0)
 
     def show_image(self, window_name=None):
         if not window_name:
@@ -30,12 +35,11 @@ class BackGroudRemove:
 
 if __name__ == '__main__':
     # -- Read image
+    #img = cv2.imread('images/lena.jpeg')
     img = cv2.imread('images/couple.jpg')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     bgr = BackGroudRemove(image=img)
+    bgr.remove_background()
+    # bgr.show_image(window_name="image")
 
-
-
-
-    bgr.show_image(window_name="image")
